@@ -1,16 +1,20 @@
 pipeline {
   agent any
   parameters {
-    string(name: 'USERNAME', defaultValue: 'guest', description: '사용자 이름')
-    booleanParam(name: 'DEBUG_MODE', defaultValue: false, description: '디버그 모드 켜기')
-    choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: '배포 환경')
+    choice(
+      name: 'ENV',
+      choices: ['dev', 'staging', 'prod'],
+      description: '배포 환경을 선택하세요'
+    )
+    string(name: 'USERNAME', defaultValue: 'guest')
+    booleanParam(name: 'DEBUG', defaultValue: false)
   }
   stages {
-    stage('Example') {
+    stage('Print Params') {
       steps {
-        echo "USERNAME=${params.USERNAME}"
-        echo "DEBUG_MODE=${params.DEBUG_MODE}"
         echo "ENV=${params.ENV}"
+        echo "USERNAME=${params.USERNAME}"
+        echo "DEBUG=${params.DEBUG}"
       }
     }
   }
